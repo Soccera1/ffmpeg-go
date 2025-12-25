@@ -1,8 +1,12 @@
 # ffmpeg-go
 
-This is a Go implementation of an ffmpeg CLI entry point.
+**A pure Go implementation of FFmpeg.**
 
-Currently, it functions as a robust wrapper around the system's `ffmpeg` binary, ensuring compatibility and reliability while providing a Go-based structure for future pure-Go implementations or custom logic extensions.
+This project aims to be a complete rewrite of FFmpeg in native Go, removing all dependencies on C libraries (no `cgo`, no `libav*`).
+
+## Current Status
+
+- **ISOBMFF (MP4) Parser**: Implemented. The tool can currently inspect the internal atom/box structure of MP4 files.
 
 ## Building
 
@@ -12,15 +16,13 @@ go build -o ffmpeg-go cmd/ffmpeg/main.go
 
 ## Usage
 
-You can use `ffmpeg-go` exactly like `ffmpeg`. It forwards all arguments to the underlying ffmpeg installation.
-
 ```bash
-./ffmpeg-go -i input.mp4 output.mkv
-./ffmpeg-go -version
+./ffmpeg-go -i input.mp4
 ```
+
+This will output the tree structure of the MP4 boxes (atoms).
 
 ## Structure
 
-- `cmd/ffmpeg`: Main entry point.
-- `internal/transcoder`: Interface and implementation for media processing.
-- `internal/cli`: CLI argument handling and execution logic.
+- `cmd/ffmpeg`: Main CLI entry point.
+- `internal/isobmff`: Pure Go package for parsing ISO Base Media File Format.
